@@ -1,0 +1,587 @@
+/* =========================================
+   CHAT DE ROCI 💙✨
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #24324a;
+
+    background:
+        radial-gradient(circle at 10% 20%, #bfdbfe 0%, transparent 25%),
+        radial-gradient(circle at 90% 80%, #c7d2fe 0%, transparent 25%),
+        linear-gradient(135deg, #eff6ff, #dbeafe, #eef2ff);
+
+    padding: 20px;
+}
+
+
+/* =========================================
+   TÍTULOS
+   ========================================= */
+
+h2 {
+    margin: 0;
+    padding: 15px 20px;
+    text-align: center;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+
+/* =========================================
+   PANTALLA DE BIENVENIDA
+   ========================================= */
+
+#panel-bienvenida {
+    width: 90%;
+    max-width: 520px;
+
+    margin: 100px auto;
+    padding: 45px 40px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 20px 50px rgba(37, 99, 235, 0.15),
+        0 5px 15px rgba(0, 0, 0, 0.05);
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    text-align: center;
+}
+
+
+/* pequeño detalle decorativo */
+
+#panel-bienvenida::before {
+    content: "💙";
+    display: block;
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+
+#panel-bienvenida h2 {
+    color: #2563eb;
+    font-size: 22px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   INPUT DEL NOMBRE
+   ========================================= */
+
+#persona {
+    width: 100%;
+
+    padding: 15px 18px;
+
+    border: 2px solid #dbeafe;
+    border-radius: 15px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    background: #f8fbff;
+
+    transition: all 0.3s ease;
+}
+
+
+#persona:focus {
+    border-color: #60a5fa;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(96, 165, 250, 0.15),
+        0 5px 15px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================
+   BOTONES
+   ========================================= */
+
+button {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 15px 20px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    box-shadow:
+        0 7px 18px rgba(37, 99, 235, 0.25);
+}
+
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(37, 99, 235, 0.30);
+}
+
+
+button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================
+   APLICACIÓN DEL CHAT
+   ========================================= */
+
+#app-chat {
+    width: 95%;
+    max-width: 750px;
+
+    margin: 30px auto;
+
+    background: white;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 60px rgba(30, 64, 175, 0.18),
+        0 5px 15px rgba(0, 0, 0, 0.05);
+
+    border: 1px solid #dbeafe;
+}
+
+
+/* =========================================
+   ENCABEZADO DEL CHAT
+   ========================================= */
+
+#app-chat h2:first-child {
+    margin: 0;
+
+    padding: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color: white;
+
+    font-size: 18px;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* =========================================
+   NUBE "CHAT CON SOCKET"
+   ========================================= */
+
+.nube {
+    background: linear-gradient(
+        135deg,
+        #3b82f6,
+        #6366f1
+    );
+
+    color: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.20);
+
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    position: relative;
+
+    vertical-align: top;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 15px;
+}
+
+
+.nube::before {
+    background: #3b82f6;
+
+    content: "\00a0";
+
+    display: block;
+
+    height: 15px;
+
+    position: absolute;
+
+    top: 10px;
+
+    transform: rotate(29deg) skew(-35deg);
+
+    width: 18px;
+}
+
+
+.box {
+    float: right;
+
+    margin: 12px 25px 12px 20px;
+}
+
+
+.box::before {
+    box-shadow:
+        -2px 2px 2px 0 rgba(178, 178, 178, .2);
+
+    left: -8px;
+}
+
+
+/* =========================================
+   VENTANA DE MENSAJES
+   ========================================= */
+
+#ventana-mensajes {
+    height: 420px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #eff6ff,
+            transparent 35%
+        ),
+        #f8fbff;
+
+    border-top: 1px solid #dbeafe;
+    border-bottom: 1px solid #dbeafe;
+}
+
+
+/* =========================================
+   MENSAJES
+   ========================================= */
+
+#output p {
+    width: fit-content;
+    max-width: 80%;
+
+    margin: 10px 5px;
+
+    padding: 13px 17px;
+
+    background: white;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 17px;
+
+    color: #475569;
+
+    box-shadow:
+        0 4px 12px rgba(30, 64, 175, 0.07);
+
+    line-height: 1.5;
+}
+
+
+#output strong {
+    color: #2563eb;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   "ESTÁ ESCRIBIENDO..."
+   ========================================= */
+
+#escribiendo-mensaje p {
+    margin: 5px;
+
+    padding: 8px 15px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    font-style: italic;
+}
+
+
+/* =========================================
+   INPUTS DEL CHAT
+   ========================================= */
+
+input {
+    width: 100%;
+
+    padding: 14px 17px;
+
+    border: none;
+    border-bottom: 1px solid #dbeafe;
+
+    background: white;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: all 0.3s ease;
+}
+
+
+input:focus {
+    background: #f8fbff;
+
+    border-bottom: 2px solid #60a5fa;
+}
+
+
+/* =========================================
+   NOMBRE DEL USUARIO
+   ========================================= */
+
+#usuario {
+    color: #2563eb;
+
+    font-weight: bold;
+
+    background: #eff6ff;
+
+    border-bottom: 1px solid #bfdbfe;
+}
+
+
+/* =========================================
+   ARCHIVOS
+   ========================================= */
+
+#archivo {
+    padding: 12px 15px;
+
+    background: #f8fbff;
+
+    border-bottom: 1px solid #dbeafe;
+
+    cursor: pointer;
+}
+
+
+#archivo::file-selector-button {
+    background: #dbeafe;
+
+    color: #1d4ed8;
+
+    border: none;
+
+    padding: 9px 14px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-right: 10px;
+
+    transition: 0.3s;
+}
+
+
+#archivo::file-selector-button:hover {
+    background: #bfdbfe;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   IMÁGENES
+   ========================================= */
+
+#output img {
+    max-width: 250px;
+    max-height: 250px;
+
+    margin-top: 8px;
+
+    border-radius: 15px;
+
+    border: 3px solid #dbeafe;
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.15);
+}
+
+
+/* =========================================
+   VIDEOS
+   ========================================= */
+
+#output video {
+    max-width: 300px;
+
+    margin-top: 8px;
+
+    border-radius: 15px;
+
+    border: 3px solid #dbeafe;
+
+    box-shadow:
+        0 6px 18px rgba(37, 99, 235, 0.15);
+}
+
+
+/* =========================================
+   AUDIO
+   ========================================= */
+
+#output audio {
+    width: 280px;
+
+    margin-top: 8px;
+}
+
+
+/* =========================================
+   ENLACES DE DESCARGA
+   ========================================= */
+
+#output a {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 6px 10px;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border-radius: 8px;
+
+    transition: 0.3s;
+}
+
+
+#output a:hover {
+    background: #eff6ff;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   BARRA DE DESPLAZAMIENTO
+   ========================================= */
+
+#ventana-mensajes::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+#ventana-mensajes::-webkit-scrollbar-track {
+    background: #eff6ff;
+}
+
+
+#ventana-mensajes::-webkit-scrollbar-thumb {
+    background: #93c5fd;
+
+    border-radius: 10px;
+}
+
+
+#ventana-mensajes::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+}
+
+
+/* =========================================
+   CELULAR
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 10px;
+    }
+
+    #app-chat {
+        width: 100%;
+        margin: 15px auto;
+        border-radius: 20px;
+    }
+
+    #panel-bienvenida {
+        width: 95%;
+        margin: 50px auto;
+        padding: 30px 25px;
+    }
+
+    #panel-bienvenida h2 {
+        font-size: 19px;
+    }
+
+    #ventana-mensajes {
+        height: 350px;
+        padding: 12px;
+    }
+
+    #output p {
+        max-width: 90%;
+    }
+
+    #output img {
+        max-width: 200px;
+    }
+
+    #output video {
+        max-width: 250px;
+    }
+
+    #output audio {
+        width: 230px;
+    }
+}
